@@ -1,0 +1,10 @@
+@import 'colors';
+
+body{
+  background-color: $primary-color;
+}
+
+
+:fullscreen a {
+  display: flex
+}
