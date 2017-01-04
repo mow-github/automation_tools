@@ -1,28 +1,54 @@
-var gulp = require('gulp'),
-  sass = require('gulp-ruby-sass'),
-  autoprefixer = require('gulp-autoprefixer'),
-  cssnano = require('gulp-cssnano'),
-  jshint = require('gulp-jshint'),
-  uglify = require('gulp-uglify'),
-  imagemin = require('gulp-imagemin'),
-  rename = require('gulp-rename'),
-  concat = require('gulp-concat'),
-  notify = require('gulp-notify'),
-  cache = require('gulp-cache'),
-  livereload = require('gulp-livereload'),
-  del = require('del');
+const gulp      = require('gulp'),
+  sass          = require('gulp-ruby-sass'),
+  autoprefixer  = require('gulp-autoprefixer'),
+  cssnano       = require('gulp-cssnano'),
+  eslint        = require('gulp-eslint'),
+  uglify        = require('gulp-uglify'),
+  imagemin      = require('gulp-imagemin'),
+  rename        = require('gulp-rename'),
+  concat        = require('gulp-concat'),
+  notify        = require('gulp-notify'),
+  cache         = require('gulp-cache'),
+  livereload    = require('gulp-livereload'),
+  del           = require('del'),
+  babel         = require('gulp-babel');
 
-  var css     = 'stylesheets';
-  var cssSrc  = 'dev/stylesheets/';
-  var cssDest = 'public/stylesheets';
+const   css   = 'stylesheets',
+  cssSrc      = 'dev/stylesheets/',
+  cssDest     = 'public/stylesheets',
 
-  var js     = 'javascripts';
-  var jsSrc  = 'dev/javascripts/';
-  var jsDest = 'public/javascripts';
+  js          = 'javascripts',
+  jsSrc       = 'dev/javascripts/main/',
+  jsDest      = 'public/javascripts',
 
-  var img     = 'images';
-  var imgSrc  = 'dev/images/';
-  var imgDest = 'public/images';
+  img         = 'images',
+  imgSrc      = 'dev/images/',
+  imgDest     = 'public/images';
+
+const   eslintSettings = {
+  rules: {
+    "indent": ["error", 2 ],
+    /*    "linebreak-style": [
+     "error",
+     "windows"
+     ],*/
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+  },
+  globals: [
+    'jQuery',
+    '$'
+  ],
+  envs: [
+    'browser'
+  ]
+};
 
 
 /*validate code and output error and concat into one file and add a minimized version, save it to the dest */
@@ -39,8 +65,11 @@ gulp.task(css, function() {
 /*validate code and output error and concat into one file and add a minimized version, save it to the dest */
 gulp.task(js, function() {
   return gulp.src(jsSrc+'**/*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(eslint(eslintSettings))
+    .pipe(eslint.format())
     .pipe(concat('main.js'))
     .pipe(gulp.dest(jsDest))
     .pipe(rename({suffix: '.min'}))
@@ -68,8 +97,8 @@ gulp.task('default', ['clean'], function() {
 });
 
 /*cmd: gulp watch
-  if one make changes in the dir:__ run gulp tasks and check your web page
-*/
+ if one make changes in the dir:__ run gulp tasks and check your web page
+ */
 gulp.task('watch', function() {
   gulp.watch(cssSrc+'**/*.scss', [css]);
   gulp.watch(jsSrc+'**/*.js', [js]);

@@ -1,5 +1,5 @@
 # About: Sample folders with automation ( Gulp ) 
-#### Purpose: Practice your skills with Gulp,
+#### Purpose: Automation with Gulp ( optimizes img, css, and js),
 ##### Technologies: HTML5, CSS3, Javascript, Gulp, SASS, SCSS
 
 ###### Installation example:
@@ -26,6 +26,7 @@
 
 
 > _"Failure is just a symptom for success"_
+
 [link to my homepage - bviking.se ](https://www.bviking.se)
 
 
