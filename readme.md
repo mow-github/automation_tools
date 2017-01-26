@@ -1,11 +1,11 @@
-# About: Sample folders with automation tools ( Gul, Webpack  ) 
-#### Purpose: Automation with Gulp ( optimizes img, css, and js),
+# About: Folders with automation tools ( Gulp, Webpack  ) 
+#### Purpose: bundle, minify, linting, babel convert ES6 to ES5, reload server etc ( optimizes img, css, and js),
 ##### Technologies: HTML5, CSS3, Javascript, Gulp, Webpack, SASS, SCSS
 
 ###### Installation example:
 <pre>git clone https://github.com/mow-github/automation_tools.git</pre>
 
-###### Instructions:
+###### Instructions for Gulp:
 
 1. Install npm packages, based on the package.json
 2. [Install SASS ](http://sass-lang.com/install)
